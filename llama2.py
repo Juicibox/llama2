@@ -4,10 +4,10 @@ import replicate
 import os
 
 # App title
-st.set_page_config(page_title="Llama2🦙 Chatbot🤖 ")
+st.set_page_config(page_title="Llama2🦙🤖 ")
 
 #new
-page = st.sidebar.selectbox("Select Page", ("Chat", "Resumen"))
+page = st.sidebar.selectbox("Seleccione una función", ("Chat", "Resumen"))
 
 
 
@@ -27,19 +27,19 @@ if page == "Chat":
         os.environ['REPLICATE_API_TOKEN'] = replicate_api
     
         st.subheader('Models and parameters')
-        selected_model = st.sidebar.selectbox('Choose a Llama2 model', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
+        selected_model = st.sidebar.selectbox('Escoja el modelo Llama2', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
         if selected_model == 'Llama2-7B':
             llm = 'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea'
         elif selected_model == 'Llama2-13B':
             llm = 'a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5'
-        temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=5.0, value=0.1, step=0.01)
-        top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
-        max_length = st.sidebar.slider('max_length', min_value=32, max_value=128, value=120, step=8)
+        temperature = st.sidebar.slider('creatividad del modelo', min_value=0.01, max_value=5.0, value=0.1, step=0.01)
+        top_p = st.sidebar.slider('creatividad de palabras', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
+        max_length = st.sidebar.slider('longitud de respuestas', min_value=32, max_value=500, value=120, step=8)
     
     
     # Store LLM generated responses
     if "messages" not in st.session_state.keys():
-        st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
+        st.session_state.messages = [{"role": "assistant", "content": "¿En qué puedo ayudarte?"}]
     
     # Display or clear chat messages
     for message in st.session_state.messages:
@@ -47,8 +47,8 @@ if page == "Chat":
             st.write(message["content"])
     
     def clear_chat_history():
-        st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
-    st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
+        st.session_state.messages = [{"role": "assistant", "content": "¿En qué puedo ayudarte?"}]
+    st.sidebar.button('Limpiar Chat', on_click=clear_chat_history)
     
     # Function for generating LLaMA2 response. Refactored from https://github.com/a16z-infra/llama2-chatbot
     def generate_llama2_response(prompt_input):
