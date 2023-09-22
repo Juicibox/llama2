@@ -2,12 +2,32 @@
 import streamlit as st
 import replicate
 import os
+from langchain.llms import Replicate
+from langchain import PromptTemplate, LLMChain
 
 # App title
 st.set_page_config(page_title="Llama2🦙🤖 ")
 
+#function
+def generate_response(txt):
+    # Instantiate the Llama2 model
+    llm = Replicate(model="a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
+                    input={"temperature":0.03, "top_p":0.8, "max_length":900})
+
+    template = """
+        Escribe un resumen conciso del texto, devuelve tus respuestas con 5 líneas que cubran los puntos clave del texto..
+        ```{text}```
+        RESUMEN:
+        """
+    prompt = PromptTemplate(template=template, input_variables=["text"])
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    summary = llm_chain.run(txt)
+    return summary
+
+
 #new
 page = st.sidebar.selectbox("Seleccione una función", ("Chat", "Resumen"))
+# verify key
 with st.sidebar:
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
@@ -88,6 +108,21 @@ if page == "Chat":
 elif page == "Resumen":
     with st.sidebar:
         st.title('Resumen con Llama2🦙')
+
+    # Text input
+    txt_input = st.text_area('Introduzca el texto', '', height=200)
+
+    # Form to accept user's text input for summarization
+    result = []
+
+    submitted = st.button('Resumir')
+    if submitted:
+        with st.spinner('Resumiendo...'):
+            response = generate_response(txt_input)
+            result.append(response)
+
+    if len(result):
+        st.info(result[0])
 
     
 
