@@ -8,14 +8,8 @@ st.set_page_config(page_title="Llama2🦙🤖 ")
 
 #new
 page = st.sidebar.selectbox("Seleccione una función", ("Chat", "Resumen"))
-
-
-
-if page == "Chat":
-    #credentials
-    with st.sidebar:
-        st.title('Llama2 Chatbot🦙')
-        if 'REPLICATE_API_TOKEN' in st.secrets:
+with st.sidebar:
+    if 'REPLICATE_API_TOKEN' in st.secrets:
             st.success('API key already provided!', icon='✅')
             replicate_api = st.secrets['REPLICATE_API_TOKEN']
         else:
@@ -25,6 +19,13 @@ if page == "Chat":
             else:
                 st.success('Proceed to entering your prompt message!', icon='👉')
         os.environ['REPLICATE_API_TOKEN'] = replicate_api
+
+
+if page == "Chat":
+    #credentials
+    with st.sidebar:
+        st.title('Llama2 Chatbot🦙')
+        
     
         st.subheader('Models and parameters')
         selected_model = st.sidebar.selectbox('Escoja el modelo Llama2', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
