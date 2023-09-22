@@ -11,7 +11,7 @@ page = st.sidebar.selectbox("Select Page", ["Chat", "Resumen"])
 
 if page == "Chat":
     #credentials
-with st.sidebar:
+    st.sidebar:
     st.title('Llama2 Chatbot🦙')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
