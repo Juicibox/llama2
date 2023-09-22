@@ -6,7 +6,11 @@ import os
 # App title
 st.set_page_config(page_title="Llama2 Chatbot 🦙")
 
-#credentials
+#new
+page = st.sidebar.selectbox("Select Page", ["Chat", "Resumen"])
+
+if page == "Chat":
+    #credentials
 with st.sidebar:
     st.title('Llama2 Chatbot🦙')
     if 'REPLICATE_API_TOKEN' in st.secrets:
@@ -76,3 +80,9 @@ if st.session_state.messages[-1]["role"] != "assistant":
             placeholder.markdown(full_response)
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
+
+    
+elif page == "Resumen":
+    st.title('Resumen')
+    st.write('Aquí puedes agregar tu código para la página de resumen.')
+
