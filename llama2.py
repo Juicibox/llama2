@@ -85,6 +85,8 @@ if page == "Chat":
 
     
 elif page == "Resumen":
-    st.title('Resumen')
-    st.write('Aquí puedes agregar tu código para la página de resumen.')
+    with st.sidebar:
+        st.title('Resumen con Llama2🦙')
+
+    
 
