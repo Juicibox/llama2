@@ -1,5 +1,5 @@
-streamlit
-replicate
-langchain
-openai
-tiktoken
+streamlit == 1.23.1
+replicate == 0.13.0
+langchain == 0.0.222
+openai == 0.27.8
+tiktoken == 0.3.1
