@@ -4,7 +4,8 @@ import replicate
 import os
 from langchain.llms import Replicate
 from langchain_community.llms import Replicate
-from langchain import PromptTemplate, LLMChain
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate 
 
 # App title
 st.set_page_config(page_title="Llama2🦙🤖 ")
@@ -20,8 +21,8 @@ def generate_response(txt):
         ```{text}```
         RESUMEN:
         """
-    prompt = langchain.prompts.PromptTemplate(template=template, input_variables=["text"])
-    llm_chain = langchain.chains.LLMChain(prompt=prompt, llm=llm)
+    prompt = PromptTemplate (template=template, input_variables=["text"])
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
     summary = llm_chain.run(txt)
     return summary
 
