@@ -2,7 +2,7 @@
 import streamlit as st
 import replicate
 import os
-from langchain.llms import Replicate
+#from langchain.llms import Replicate
 from langchain_community.llms import Replicate
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate 
