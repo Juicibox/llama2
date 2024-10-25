@@ -8,7 +8,8 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate 
 
 # App title
-st.set_page_config(page_title="Llama2🦙🤖 ")
+
+st.set_page_config(page_title="Llama2🦙🤖 ", page_icon="logo.png")
 
 #function
 def generate_response(txt):
